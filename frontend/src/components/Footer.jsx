@@ -1,15 +1,16 @@
-import { Link } from "react-router-dom";
 
 const Footer = () => {
     const date = new Date().getFullYear()
     return (
         <footer className="footer">
-            <p>&copy; {date} Url Shortener- Tool to shorten a long link.</p>
-            <Link to="/">Home </Link>
-            <Link to="/stats">Url Statistics </Link>
-            <Link to="/terms-of-service">Terms Of Service </Link>
-            <Link to="/privacy">Privacy </Link>
-            <Link to="/contact">Contact</Link>
+            <p>&copy; {date} Url Shortener - Tool to shorten a long link.</p>
+            <div className="footer-nav">
+                <span><a href="/">Home </a></span>
+                <span><a href="/stats">Url Statistics </a></span>
+                <span><a href="/terms-of-service">Terms Of Service </a></span>
+                <span><a href="/privacy">Privacy </a></span>
+                <span><a target="_blank" href="mailto:adrian.wroblewski10@gmail.com">Contact</a></span>
+            </div>
         </footer>
     )
 }

@@ -4,18 +4,16 @@ import CopyButton from './CopyButton';
 
 const UrlInput = () => {
 
-
     const [urlInput, setUrlInput] = useState('');
     const [longUrl, setLongUrl] = useState('');
     const [shortUrl, setShortUrl] = useState('');
     const [error, setError] = useState('')
 
-
     async function handleSubmit(token) {
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/newEntry`,
+            await axios.post(`${import.meta.env.VITE_API_URL}/newEntry`,
                 {
-                    Url: urlInput,
+                    urlToShorten: urlInput,
                     gRecaptchaToken: token
                 },
                 {
@@ -43,7 +41,7 @@ const UrlInput = () => {
         try {
             e.preventDefault();
             if (!urlValidation(urlInput)) {
-                setError('Incorrect Url')
+                setError('Incorrect URL')
                 setShortUrl('')
                 return;
             }
@@ -57,34 +55,36 @@ const UrlInput = () => {
         }
     }
 
+    let isDisabled = !urlInput ? true : false
 
     return (
-        <div className="main">
-            <h1 className='main__header'>Url Shortener</h1>
+        <div className="urlbox">
+            <h1 className='urlbox__header'>Paste the URL to be shortened</h1>
             <div className="input-box">
                 <form onSubmit={(e) => e.preventDefault()} className="url-form">
-                    <input type="text" id="longUrl" className="url-form__input" required value={urlInput} placeholder="Shorten your link" onChange={
+                    <input type="text" id="longUrl" className="url-form__input" required value={urlInput} placeholder="Enter the link here" onChange={
                         (e) => {
                             setUrlInput(e.target.value)
                         }
                     }
                         name="Url" />
-                    <button name="button" className="url-form__button" type="button" onClick={(e) => handleOnClick(e)}>Shorten!</button>
+                    <button name="button" className="url-form__button" type="button" disabled={isDisabled} onClick={(e) => handleOnClick(e)}>Shorten!</button>
                 </form>
             </div>
             <div className='short-url-box'>
+                {error ? <p className="errmsg">{error}</p> : null}
                 {shortUrl ?
                     <>
                         <p>{longUrl}</p>
                         <a target="_blank" href={`${import.meta.env.VITE_API_URL}/${shortUrl}`} >
-                            {`${import.meta.env.VITE_API_URL}/${shortUrl}`}
+                            {`${import.meta.env.VITE_API_URI}/${shortUrl}`}
                         </a>
                         <CopyButton content={shortUrl} />
                     </>
                     : null}
             </div>
+            <p>ShortURL is a free service to shorten URLs and create short links</p>
             <div>
-                {error ? <p>{error}</p> : null}
             </div>
         </div>
     )

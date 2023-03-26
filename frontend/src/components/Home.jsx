@@ -1,9 +1,15 @@
 import React from 'react'
 import UrlInput from './UrlInput'
+import Description from './Description'
+import DescriptionCards from './DescriptionCards'
 
 const Home = () => {
     return (
-        <UrlInput />
+        <div className="main">
+            <UrlInput />
+            <Description />
+            <DescriptionCards />
+        </div>
     )
 }
 

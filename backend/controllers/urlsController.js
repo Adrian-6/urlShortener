@@ -4,24 +4,27 @@ const randomString = require('randomstring');
 
 
 const addNewUrl = async (req, res) => {
-    if (!req.body.Url) {
+    if (!req.body.urlToShorten) {
         return res.status(400);
     }
-    const OriginalUrl = await Url.findOne({ longUrl: req.body.Url }).exec();
+    const { urlToShorten } = req.body
+
+    let dbReadyUrl;
+    urlFromRequest = ((urlToShorten).split('://'))
+
+    //adds https to links to be stored in database, or if link has defined protocol, it's left without changes
+    if (urlFromRequest.length === 1) {
+        dbReadyUrl = `https://${urlFromRequest.at(-1)}`
+    } else {
+        dbReadyUrl = urlToShorten
+    }
+
+    const OriginalUrl = await Url.findOne({ longUrl: dbReadyUrl }).exec();
     if (OriginalUrl) {
         return res.json(OriginalUrl);
     }
     const shortenedUrl = randomString.generate(4);
 
-    urlFromRequest = ((req.body.Url).split('://'))
-    let dbReadyUrl;
-
-    //adds https to links to be stored in database, or if link has defined protocol, it's left without changes
-    if (urlFromRequest.length == 1) {
-        dbReadyUrl = `https://${urlFromRequest[urlFromRequest.length - 1]}`
-    } else {
-        dbReadyUrl = req.body.Url
-    }
 
     const UrlObject = { longUrl: dbReadyUrl, shortUrl: shortenedUrl }
     //create and store new url
@@ -53,7 +56,6 @@ const getAllUrls = async (req, res) => {
 }
 
 const DisplayShortUrl = async (req, res) => {
-    console.log(req.params)
     if (!req.params.shortUrl) return res.status(400).json({ message: "invalid URL" })
 
     //gets the last part of shortened link, which is the part stored in DB

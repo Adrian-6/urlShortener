@@ -1,10 +1,12 @@
 import React from 'react'
-import Nav from './Nav'
 const Header = () => {
-//dodac rozwijane menu ze wszystkimi podstronami
     return (
         <header className="header">
-            <Nav />
+            <div className='header__text'>
+                <a href={import.meta.env.VITE_BASE_URL} className="header__link">
+                    <h1>URL Shortener</h1>
+                </a>
+            </div>
         </header>
     )
 }
