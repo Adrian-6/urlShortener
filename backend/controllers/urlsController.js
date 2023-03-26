@@ -59,7 +59,7 @@ const DisplayShortUrl = async (req, res) => {
     if (!req.params.shortUrl) return res.status(400).json({ message: "invalid URL" })
 
     //gets the last part of shortened link, which is the part stored in DB
-    const shortPath = req.params.shortUrl.split("/").at(-1)
+    const shortPath = await req.params.shortUrl.split("/").at(-1)
 
     const reqUrl = await Url.findOne({ shortUrl: shortPath }, '-__v -_id').exec();
     if (!reqUrl) {
