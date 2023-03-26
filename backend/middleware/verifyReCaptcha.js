@@ -1,4 +1,6 @@
 require("dotenv").config()
+import fetch from 'node-fetch';
+
 const verifyReCaptcha = (req, res, next) => {
     const secretKey = process.env.SECRET_KEY
     const VERIFY_Url = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body['gRecaptchaToken']}`;
