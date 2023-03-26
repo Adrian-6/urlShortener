@@ -62,6 +62,7 @@ const UrlInput = () => {
             <h1 className='urlbox__header'>Paste the URL to be shortened</h1>
             <div className="input-box">
                 <form onSubmit={(e) => e.preventDefault()} className="url-form">
+                <label htmlFor="longUrl" className='hidden'>Enter your URL here to shorten it</label>
                     <input type="text" id="longUrl" className="url-form__input" required value={urlInput} placeholder="Enter the link here" onChange={
                         (e) => {
                             setUrlInput(e.target.value)

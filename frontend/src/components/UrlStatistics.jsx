@@ -51,6 +51,7 @@ const UrlStatistics = () => {
       </p>
       <div className="input-box">
         <form onSubmit={(e) => e.preventDefault()} className="url-form">
+        <label htmlFor="shortUrl" className='hidden'>Enter your shortened URL here to check it's statistics</label>
           <input type="text" id="shortUrl" className="url-form__input" required value={urlInput} placeholder="Enter here your shortened URL" onChange={
             (e) => {
               setUrlInput(e.target.value)
