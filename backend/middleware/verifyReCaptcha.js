@@ -1,5 +1,5 @@
 require("dotenv").config()
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
 const verifyReCaptcha = (req, res, next) => {
     const secretKey = process.env.SECRET_KEY
