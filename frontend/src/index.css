@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+}
+
+button {
+  cursor: pointer;
+}
+
+.App {
+  color: black;
+}
+
+.url-form {
+  display: flex
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.header {
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  position: sticky;
+  top: 0px;
+  font-size: 1.5rem;
+  border: 0px;
+  border-color: rgb(0, 0, 0);
+  background-color: seagreen;
+  height: 2.5em;
+}
+
+.navbar {
+  align-self: right;
+  width: 50%;
+  height: 100%;
+  display: block;
+  justify-content: flex-end;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.footer {
+  display: inline-block;
+  vertical-align: bottom;
+  text-align: center;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.main__header {
+  margin: 0;
+  text-align: center;
+}
+
+.input-box {
+  align-self: center;
+  width: 70%;
+}
+
+.nav-item {
+  display: inline-flex;
+  width: auto;
+  padding-right: 2%;
+  height: 100%;
+  background-color: white;
+
+}
+
+.input-box__header {
+  background-color: bl;
+  color: white;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.url-form__input {
+  padding: 1em;
+  display: block;
+  font-size: large;
+  border: 1px solid seagreen;
+  border-radius: 8px 0px 0px 8px;
+  width: 100%;
+}
+
+.url-form__button {
+  min-width: 6em;
+  font-size: larger;
+  background-color: white;
+  border: 0;
+  border-radius: 0px 8px 8px 0px;
+  background-color: seagreen;
+  color: white;
+}
+
+.short-url-box:has(a) {
+  display: flex;
+  width: 70%;
+  border-radius: 8px;
+  align-self: center;
+  justify-content: space-between;
+  margin-top: 1em;
+
+  background-color: white;
+  align-items: center;
+  color: black;
+}
+
+.short-url-box p {
+  flex-shrink: 1;
+  padding-left: 1em;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.2em;
+  max-height: 1.2em;
+}
+
+.short-url-box a {
+  flex-shrink: 0;
+  padding: 0 1em 0 1em;
+  margin-left:auto;
+}
+
+.copy-button {
+  flex-shrink: 0;
+  border: 0;
+  background-color: transparent;
+  margin-right: 1em;
+  color: #0000ee;
+  font-size: large
+}
+
+.copy-button:hover {
+  background-color: hwb(240 0% 7% / 0.10)
+}

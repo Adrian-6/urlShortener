@@ -1,0 +1,75 @@
+require("dotenv").config()
+const Url = require('../models/Url');
+const randomString = require('randomstring');
+
+
+const addNewUrl = async (req, res) => {
+    if (!req.body.Url) {
+        return res.status(400);
+    }
+    const OriginalUrl = await Url.findOne({ longUrl: req.body.Url }).exec();
+    if (OriginalUrl) {
+        return res.json(OriginalUrl);
+    }
+    const shortenedUrl = randomString.generate(4);
+
+    urlFromRequest = ((req.body.Url).split('://'))
+    let dbReadyUrl;
+
+    //adds https to links to be stored in database, or if link has defined protocol, it's left without changes
+    if (urlFromRequest.length == 1) {
+        dbReadyUrl = `https://${urlFromRequest[urlFromRequest.length - 1]}`
+    } else {
+        dbReadyUrl = req.body.Url
+    }
+
+    const UrlObject = { longUrl: dbReadyUrl, shortUrl: shortenedUrl }
+    //create and store new url
+    const url = await Url.create(UrlObject)
+    if (url) {
+        res.status(201).json(url)
+    } else {
+        res.status(400).json({ message: "invalid Url" })
+    }
+}
+
+const getShortUrl = async (req, res) => {
+    const shortenedUrl = req.params.shUrl
+    const reqUrl = await Url.findOne({ shortUrl: shortenedUrl }).exec();
+    if (!reqUrl) {
+        const baseUrl = process.env.BASE_URL
+        return res.redirect(baseUrl)
+    } else {
+        reqUrl.uses++;
+        reqUrl.lastUse = Date.now();
+        await reqUrl.save();
+        res.redirect(reqUrl.longUrl);
+    }
+}
+
+const getAllUrls = async (req, res) => {
+    const allUrls = await Url.find();
+    return res.json(allUrls)
+}
+
+const DisplayShortUrl = async (req, res) => {
+    console.log(req.params)
+    if (!req.params.shortUrl) return res.status(400).json({ message: "invalid URL" })
+
+    //gets the last part of shortened link, which is the part stored in DB
+    const shortPath = req.params.shortUrl.split("/").at(-1)
+
+    const reqUrl = await Url.findOne({ shortUrl: shortPath }, '-__v -_id').exec();
+    if (!reqUrl) {
+        return res.status(400).json({ message: "No matching URL" })
+    } else {
+        return res.status(201).json(reqUrl)
+    }
+}
+
+module.exports = {
+    addNewUrl,
+    getShortUrl,
+    getAllUrls,
+    DisplayShortUrl
+}
