@@ -14,7 +14,7 @@ const addNewUrl = async (req, res) => {
 
     //adds https to links to be stored in database, or if link has defined protocol, it's left without changes
     if (urlFromRequest.length === 1) {
-        dbReadyUrl = `https://${urlFromRequest.at(-1)}`
+        dbReadyUrl = `https://${urlFromRequest[urlFromRequest.length - 1]}`
     } else {
         dbReadyUrl = urlToShorten
     }
@@ -61,7 +61,7 @@ const DisplayShortUrl = async (req, res) => {
     //gets the last part of shortened link, which is the part stored in DB
     try {
         const shortPath = req.params.shortUrl.split("/")
-        const shortUrl = shortPath.at(-1)
+        const shortUrl = shortPath[shortPath.length - 1]
         const reqUrl = await Url.findOne({ shortUrl: shortUrl }, '-__v -_id').exec();
         if (!reqUrl) {
             return res.status(400).json({ message: "No matching URL" })
