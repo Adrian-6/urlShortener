@@ -57,7 +57,6 @@ const getAllUrls = async (req, res) => {
 
 const DisplayShortUrl = async (req, res) => {
     if (!req.params.shortUrl) return res.status(400).json({ message: "invalid URL" })
-    console.log(req.params)
     //gets the last part of shortened link, which is the part stored in DB
     try {
         const shortPath = req.params.shortUrl.split("/")
