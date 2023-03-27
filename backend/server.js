@@ -12,7 +12,7 @@ const app = express();
 
 const corsConfig = {
     credentials: true,
-    origin: 'https://url-shrtnr-app.netlify.app',
+    origin: 'https://urlshortener-0ly0.onrender.com',
     optionSuccessStatus: 200
 };
 app.use(cors(corsConfig));
@@ -28,7 +28,7 @@ async function main() {
 }
 
 app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['https://url-shrtnr-app.netlify.app']);
+    res.append('Access-Control-Allow-Origin', ['https://url-shrtnr-app.netlify.app', 'https://urlshortener-0ly0.onrender.com']);
     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.append('Access-Control-Allow-Headers', 'Content-Type');
     next();
