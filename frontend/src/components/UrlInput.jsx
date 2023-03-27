@@ -34,7 +34,7 @@ const UrlInput = () => {
     };
 
     function urlValidation(input) {
-        let regex = /(?!(urlx\.pl|https:\/\/www\.urlx\.pl|www\.urlx\.pl))[a-zA-Z]+\.[A-Za-z0-9]+/i;
+        let regex = /[a-zA-Z]+\.[A-Za-z0-9]+/i;
         return regex.test(input);
     }
     const handleOnClick = e => {
