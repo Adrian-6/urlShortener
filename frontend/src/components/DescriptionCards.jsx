@@ -7,14 +7,14 @@ const DescriptionCards = () => {
                 <img src="../../thumbs-up-regular.svg" height="75px" width="75px" role="none" />
                 <h3>Easy</h3>
                 <p>
-                    ShortURL is easy and fast, enter the long link to get your shortened link
+                    UrlX is easy and fast, enter the long link to get your shortened link
                 </p>
             </div>
             <div className="description__card">
                 <img src="../../link-solid.svg" height="75px" width="75px" role="none" />
                 <h3>Shortened</h3>
                 <p>
-                    Use any link, no matter what size, ShortURL always shortens
+                    Use any link, no matter what size, UrlX always shortens
                 </p>
             </div>
             <div className="description__card">

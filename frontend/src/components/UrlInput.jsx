@@ -84,7 +84,7 @@ const UrlInput = () => {
                     </>
                     : null}
             </div>
-            <p>ShortURL is a free service to shorten URLs and create short links</p>
+            <p>UrlX is a free service to shorten URLs and create short links</p>
             <div>
             </div>
         </div>
