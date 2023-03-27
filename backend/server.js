@@ -12,7 +12,7 @@ const app = express();
 
 const corsConfig = {
     credentials: true,
-    origin: '*',
+    origin: 'https://url-shrtnr-app.netlify.app',
     optionSuccessStatus:200
 };
 app.use(cors(corsConfig));
