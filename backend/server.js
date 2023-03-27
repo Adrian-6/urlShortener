@@ -33,7 +33,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', (req, res) => res.send('URL Shortener API'))
+app.get('/', (req, res) => res.redirect('https://www.short.urlx.pl'))
 app.use("/", verifyReCaptcha, require("./routes/urlRoutes"));
 
 app.listen(port, () => {
