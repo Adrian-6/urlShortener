@@ -1,7 +1,7 @@
 
 const CopyButton = ({ content }) => {
 
-    const link = `${import.meta.env.VITE_API_URL}/${content}`
+    const link = `${import.meta.env.VITE_API_URI}/${content}`
 
     function handleCopy(link) {
         navigator.clipboard.writeText(link);
