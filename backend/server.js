@@ -21,6 +21,13 @@ async function main() {
     await mongoose.connect(process.env.DB_URI);
 }
 
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 app.use("/", verifyReCaptcha, require("./routes/urlRoutes"));
 
 app.listen(port, () => {
