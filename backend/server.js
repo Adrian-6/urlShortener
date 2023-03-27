@@ -13,7 +13,7 @@ const app = express();
 const corsConfig = {
     credentials: true,
     origin: '*',
-    optionSuccessStatus:200
+    optionSuccessStatus: 200
 };
 app.use(cors(corsConfig));
 
@@ -34,6 +34,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/', (req, res) => res.send('URL Shortener API'))
 app.use("/", verifyReCaptcha, require("./routes/urlRoutes"));
 
 app.listen(port, () => {
