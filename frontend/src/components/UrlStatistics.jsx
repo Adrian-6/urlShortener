@@ -28,16 +28,27 @@ const UrlStatistics = () => {
     }
   };
 
+  function urlValidation(input) {
+    let regex = /(?=(urlx\.pl|https:\/\/(www\.)?urlx\.pl))[a-zA-Z]+\.[A-Za-z0-9]+/i
+    return regex.test(input);
+  }
+
   const handleOnClick = e => {
     try {
       e.preventDefault();
-      window.grecaptcha.ready(() => {
-        window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_KEY, { action: 'submit' }).then(token => {
-          handleSubmit(token);
-        });
-      });
+      if (!urlValidation(urlInput)) {
+        setError('Incorrect URL')
+        return;
+      } else {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_KEY, { action: 'submit' }).then(token => {
+            handleSubmit(token);
+          });
+        })
+      };
     } catch (err) {
       setError(err.message)
+
     }
   }
 
@@ -51,7 +62,7 @@ const UrlStatistics = () => {
       </p>
       <div className="input-box">
         <form onSubmit={(e) => e.preventDefault()} className="url-form">
-        <label htmlFor="shortUrl" className='hidden'>Enter your shortened URL here to check it's statistics</label>
+          <label htmlFor="shortUrl" className='hidden'>Enter your shortened URL here to check it's statistics</label>
           <input type="text" id="shortUrl" className="url-form__input" required value={urlInput} placeholder="Enter here your shortened URL" onChange={
             (e) => {
               setUrlInput(e.target.value)
