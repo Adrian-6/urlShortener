@@ -9,7 +9,13 @@ const verifyReCaptcha = require('./middleware/verifyReCaptcha')
 //prevent users from shortening short links (on addNewUrl check if long link domain !== short link domain)
 
 const app = express();
-app.use(cors())
+
+const corsConfig = {
+    credentials: true,
+    origin: '*,
+    optionSuccessStatus:200
+};
+app.use(cors(corsConfig));
 
 app.use(bodyParser.json());
 
