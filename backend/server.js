@@ -12,7 +12,7 @@ const app = express();
 
 const corsConfig = {
     credentials: true,
-    origin: '*',
+    origin: 'https://urlshortener-0ly0.onrender.com',
     optionSuccessStatus: 200
 };
 app.use(cors(corsConfig));
