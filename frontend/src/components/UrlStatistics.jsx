@@ -28,7 +28,7 @@ const UrlStatistics = () => {
 
     } catch (err) {
       setUrlInfo(null)
-      setError(err.response.data.message)
+      setError('An error occured. Please try again later.')
     } finally {
       setIsLoading(false)
     }
@@ -38,6 +38,21 @@ const UrlStatistics = () => {
     let regex = /(?=(urlx\.pl|https:\/\/(www\.)?urlx\.pl))[a-zA-Z]+\.[A-Za-z0-9]+/i
     return regex.test(input);
   }
+
+/*   const handleSendMessage = () => {
+    e.preventDefault()
+    if (message.trim() !== '') {
+        setMessage('')
+      
+        sendMessage(newMessage)
+    }
+} */
+
+const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+}
 
   const handleOnClick = e => {
     try {
@@ -73,6 +88,7 @@ const UrlStatistics = () => {
               setUrlInput(e.target.value)
             }
           }
+          onKeyDown={handleKeyPress}
             name="Url" />
           <button name="button" className="url-form__button" type="button" disabled={isDisabled} onClick={(e) => handleOnClick(e)}>Get Statistics</button>
         </form>

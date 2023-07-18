@@ -13,6 +13,7 @@ const UrlInput = () => {
     async function handleSubmit(token) {
         try {
             setIsLoading(true)
+            setError(null)
             await axios.post(`${import.meta.env.VITE_API_URL}/newEntry`,
                 {
                     urlToShorten: urlInput,
@@ -31,12 +32,17 @@ const UrlInput = () => {
                     setError(null)
                 })
         } catch (err) {
-            setError(err.response.data.message)
+            setError('An error occured. Please try again later.')
         }
         finally {
             setIsLoading(false)
         }
     };
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSubmit()
+        }
+    }
 
     function urlValidation(input) {
         let regex = /[a-zA-Z]+\.[A-Za-z0-9]+/i;
@@ -73,6 +79,7 @@ const UrlInput = () => {
                             setUrlInput(e.target.value)
                         }
                     }
+                        onKeyDown={handleKeyPress}
                         name="Url" />
                     <button name="button" className="url-form__button" type="button" disabled={isDisabled} onClick={(e) => handleOnClick(e)}>Shorten!</button>
                 </form>
