@@ -1,30 +1,36 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { format, parseISO } from 'date-fns'
+import Loading from '../assets/Loading';
+
 const UrlStatistics = () => {
 
   const [urlInput, setUrlInput] = useState('');
   const [urlInfo, setUrlInfo] = useState('');
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const date = parseISO(urlInfo?.lastUse)
   const dateFormatted = urlInfo ? format(date, 'dd/MM/yyyy kk:mm') : null
 
   async function handleSubmit() {
     try {
+      setIsLoading(true)
+      setError(null)
       await axios.get(`${import.meta.env.VITE_API_URL}/getUrlInfo/${encodeURIComponent(urlInput)}`, {
         headers: {
           'content-type': 'application/json'
         }
       }).then(res => {
         setUrlInfo(res.data);
-        setError(null)
         setUrlInput('')
       })
 
     } catch (err) {
       setUrlInfo(null)
       setError(err.response.data.message)
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -48,7 +54,6 @@ const UrlStatistics = () => {
       };
     } catch (err) {
       setError(err.message)
-
     }
   }
 
@@ -77,6 +82,11 @@ const UrlStatistics = () => {
       </div>
       <div className={`short-url-box url-statistics-box`}>
         {error ? <p className="errmsg">{error}</p> : null}
+        {
+          isLoading ?
+            <Loading />
+            : null
+        }
         {urlInfo ?
           <>
             <a target="_blank" href={`${import.meta.env.VITE_API_URL}/${urlInfo?.shortUrl}`}>

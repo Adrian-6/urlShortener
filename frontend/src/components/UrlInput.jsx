@@ -1,16 +1,18 @@
 import axios from 'axios';
 import { useState } from 'react';
 import CopyButton from './CopyButton';
-
+import Loading from '../assets/Loading';
 const UrlInput = () => {
 
     const [urlInput, setUrlInput] = useState('');
     const [longUrl, setLongUrl] = useState('');
     const [shortUrl, setShortUrl] = useState('');
     const [error, setError] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     async function handleSubmit(token) {
         try {
+            setIsLoading(true)
             await axios.post(`${import.meta.env.VITE_API_URL}/newEntry`,
                 {
                     urlToShorten: urlInput,
@@ -30,6 +32,9 @@ const UrlInput = () => {
                 })
         } catch (err) {
             setError(err.response.data.message)
+        }
+        finally {
+            setIsLoading(false)
         }
     };
 
@@ -62,7 +67,7 @@ const UrlInput = () => {
             <h1 className='urlbox__header'>Paste the URL to be shortened</h1>
             <div className="input-box">
                 <form onSubmit={(e) => e.preventDefault()} className="url-form">
-                <label htmlFor="longUrl" className='hidden'>Enter your URL here to shorten it</label>
+                    <label htmlFor="longUrl" className='hidden'>Enter your URL here to shorten it</label>
                     <input type="text" id="longUrl" className="url-form__input" required value={urlInput} placeholder="Enter the link here" onChange={
                         (e) => {
                             setUrlInput(e.target.value)
@@ -74,6 +79,11 @@ const UrlInput = () => {
             </div>
             <div className='short-url-box'>
                 {error ? <p className="errmsg">{error}</p> : null}
+                {
+                    isLoading ?
+                        <Loading />
+                        : null
+                }
                 {shortUrl ?
                     <>
                         <p>{longUrl}</p>
