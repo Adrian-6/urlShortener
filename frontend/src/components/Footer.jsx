@@ -3,7 +3,7 @@ const Footer = () => {
     const date = new Date().getFullYear()
     return (
         <footer className="footer">
-            <p>&copy; {date} Url Shortener - Tool to shorten a long link.</p>
+            <p>&copy; {date} UrlX - Tool to shorten a long link.</p>
             <div className="footer-nav">
                 <span><a href="/">Home </a></span>
                 <span><a href="/stats">Url Statistics </a></span>
